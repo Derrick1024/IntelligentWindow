@@ -32,9 +32,9 @@ void setup() {
 	pinMode(LimitSwitchPin0, INPUT);
 	pinMode(LimitSwitchPin0, INPUT);
 
-	Serial.begin(115200);
-	Serial1.begin(115200);
-	Serial2.begin(2400);
+	Serial.begin(115200); // 调试用
+	Serial1.begin(115200); // 与屏幕的通信
+	Serial2.begin(2400); // 与夏普传感器模块通信
 	Serial3.begin(115200);
 	printf_begin();
 	dht.begin();
@@ -65,9 +65,17 @@ void DHT_getdata(void)
 {
 	SensorData0.TempIn = dht.readTemperature();
 	SensorData0.HumiIn = dht.readHumidity();
-	Serial.print("HumiIn");
-	Serial.print(SensorData0.HumiIn, 1);
-	Serial.print("TempIn");
-	Serial.print(SensorData0.TempIn, 1);
+	//Serial.print("HumiIn");
+	//Serial.print(SensorData0.HumiIn, 1);
+	//Serial.print("TempIn");
+	//Serial.print(SensorData0.TempIn, 1);
 }
-int serial_putc(char c, struct __file *){	Serial1.write(c);	return c;}void printf_begin(void){	fdevopen(&serial_putc, 0);}
+int serial_putc(char c, struct __file *)
+{
+	Serial1.write(c);
+	return c;
+}
+void printf_begin(void)
+{
+	fdevopen(&serial_putc, 0);
+}

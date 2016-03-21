@@ -14,6 +14,8 @@ class Usart_Task
 {
 public:
 	String comdata0 = "";//串口接收数据
+	String comdata1 = "";//串口接收数据
+	String comdata2 = "";//串口接收数据
 	int numdata[4] = { 0 }; //comdata 拆分后的数据num1,num2,num3,num4
 	int states0 = 0; //开始解析的状态标志，取值有（-1）0 1 2 3
 

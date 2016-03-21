@@ -13,16 +13,17 @@ int Usart_Task::Usart1_TmtTask(void)
 {
 	const char CmdEnd[3] = { 0xff, 0xff, 0xff };
 	/*Serial1.printf("Êý¾Ý¼à¿Ø.t0.txt=%f", SensorData0.PM2_5);*/
-	printf("sjjk.t0.txt=\"%d\"", int(SensorData0.PM2_5));
+	Serial1.print(String("") + "sjjk.t0.txt=\"" + SensorData0.PM2_5 + "\"");
 	Serial1.write(CmdEnd, 3);
-	printf("sjjk.t1.txt=\"%d\"",int(SensorData0.TempOut));
+	Serial1.print(String("") + "sjjk.t1.txt=\"" + int(SensorData0.TempOut) + "\"");
 	Serial1.write(CmdEnd, 3);
-	printf("sjjk.t2.txt=\"%d\"", int(SensorData0.HumiOut));
+	Serial1.print(String("") + "sjjk.t2.txt=\"" + int(SensorData0.HumiOut) + "\"");
 	Serial1.write(CmdEnd, 3);
-	printf("sjjk.t3.txt=\"%d\"", int(SensorData0.TempIn));
+	Serial1.print(String("") + "sjjk.t3.txt=\"" + int(SensorData0.TempIn) + "\"");
 	Serial1.write(CmdEnd, 3);
-	printf("sjjk.t4.txt=\"%d\"", int(SensorData0.HumiIn));
+	Serial1.print(String("") + "sjjk.t4.txt=\"" + int(SensorData0.HumiIn) + "\"");
 	Serial1.write(CmdEnd, 3);
+	
 	return 1;
 }
 
@@ -32,7 +33,7 @@ int Usart_Task::Usart1_RevTask(void)
 	{
 		while (Serial1.peek() != 0xff)
 		{
-			comdata0 += char(Serial1.read());
+			comdata1 += char(Serial1.read());
 			delayMicroseconds(120);
 		}
 		Serial1.read();
@@ -42,7 +43,7 @@ int Usart_Task::Usart1_RevTask(void)
 		Serial1.read();
 
 		//Serial.print(comdata0);
-		comdata0 = "";
+		comdata1 = "";
 	}
 
 	//Serial.write(hexdata, 8);
@@ -52,39 +53,54 @@ int Usart_Task::Usart1_RevTask(void)
 int Usart_Task::Usart2_RevTask(void)
 {
 	String temp = "";
+	int first = 0, second = 0;
+
 	if (Serial2.available() > 0)
 	{
-		//	while (char(Serial.peek()) != '\n')
-		//{
-		//delayMicroseconds(120);
-		//comdata0 += char(Serial.read());
-		//delayMicroseconds(120);
-		//}
-		//Serial.read();
-		//delayMicroseconds(120);
-
-		for (int i = 0; i < 16; i++)
+		while (Serial2.peek() != 0x0D)
 		{
-			delayMicroseconds(120);
-			comdata0 += char(Serial2.read());
+			comdata2 += char(Serial2.read());
+			delay(6);
+		}
+		Serial2.read();
+		delay(6);
+		Serial2.read();
+		delay(6);
+		
+		for (int i = 0; i < comdata2.length(); i++)
+		{
+			if (comdata2[i] == ',')
+			{
+				if (first == 0)
+				{
+					first = i;
+				}
+				else
+				{
+					second = i;
+				}
+			}
 		}
 		
-		/*Serial.print(comdata0);*/
-		temp = comdata0.substring(0, 4);
+		/*Serial.print(comdata2);
+		Serial.print(first);
+		Serial.print(second);*/
+		temp = comdata2.substring(0, first);
 		SensorData0.PM2_5 = temp.toFloat();
-		temp = comdata0.substring(5, 9);
+		temp = comdata2.substring(first + 1, second);
 		SensorData0.TempOut = temp.toFloat();
-		temp = comdata0.substring(10, 14);
+		temp = comdata2.substring(second + 1, comdata2.length());
 		SensorData0.HumiOut = temp.toFloat();
 
-		Serial.print("PM25");
-		Serial.print(SensorData0.PM2_5);
-		Serial.print("HumiOut");
-		Serial.print(SensorData0.HumiOut);
-		Serial.print("TempOut");
-		Serial.print(SensorData0.TempOut);
-		comdata0 = "";
+		//Serial.print("PM25");
+		//Serial.print(SensorData0.PM2_5);
+		//Serial.print("HumiOut");
+		//Serial.print(SensorData0.HumiOut);
+		//Serial.print("TempOut");
+		//Serial.print(SensorData0.TempOut);
+		comdata2 = "";
 	}
+
 	return 1;
 }
 
