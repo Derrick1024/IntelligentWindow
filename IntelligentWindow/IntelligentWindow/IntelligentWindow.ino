@@ -1,13 +1,15 @@
 /*
  Name:		IntelligentWindow.ino
  Created:	2016/3/14 22:00:22
- Author:	ycg10
+ Author:	ycg1024
 */
 
 #include "UsartTask.h"
+#include "Algorithm.h"
 #include <DHT.h>
 #include <Servo.h>
 #include "ValueFunDefine.h"
+
 
 SensorData SensorData0;
 CtrlData CtrlData0;
@@ -17,8 +19,7 @@ Servo myservo1;
 Usart_Task Usart0_Task;
 Usart_Task Usart1_Task;
 Usart_Task Usart2_Task;
-
-
+Algorithm Algorithm0;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -36,7 +37,6 @@ void setup() {
 	Serial1.begin(115200); // 与屏幕的通信
 	Serial2.begin(2400); // 与夏普传感器模块通信
 	Serial3.begin(115200);
-	printf_begin();
 	dht.begin();
 	myservo0.attach(ServoPin0);
 	myservo1.attach(ServoPin1);
@@ -70,12 +70,7 @@ void DHT_getdata(void)
 	//Serial.print("TempIn");
 	//Serial.print(SensorData0.TempIn, 1);
 }
-int serial_putc(char c, struct __file *)
-{
-	Serial1.write(c);
-	return c;
-}
-void printf_begin(void)
-{
-	fdevopen(&serial_putc, 0);
-}
+
+
+
+

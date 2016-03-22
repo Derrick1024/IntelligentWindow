@@ -1,12 +1,14 @@
 #include "UsartTask.h"
 #include "ValueFunDefine.h"
+#include "Algorithm.h"
 
-extern SensorData SensorData0;
-extern CtrlData CtrlData0;
+//extern SensorData SensorData0;
+//extern CtrlData CtrlData0;
+
 
 int Usart_Task::Usart0_RevTask(void)
 {
-
+	Algorithm0.ASHRAE(SensorData0.TempIn, SensorData0.HumiIn);
 	return 1;
 }
 int Usart_Task::Usart1_TmtTask(void)
