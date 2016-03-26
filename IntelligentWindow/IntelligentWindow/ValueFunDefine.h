@@ -15,19 +15,21 @@
 #define DHT11Pin 45
 #define DHTTYPE DHT11
 //moter
-#define MotorPin0 3
-#define MotorPin1 4
-#define MotorPwm 5
+#define MotorPin0 32
+#define MotorPin1 33
+#define MotorPwm 34
 //relay
-#define RelayPin0 6
-#define RelayPin1 7
+#define RelayPin0 42
+#define RelayPin1 43
 //LimitSwitch
-#define LimitSwitchPin0 8
-#define LimitSwitchPin1 9
-#define LimitSwitchPin2 10
+#define LimitSwitchPin0 25//close
+#define LimitSwitchPin1 24//open
+#define LimitSwitchPin2 23
 //servo
 #define ServoPin0 11
 #define ServoPin1 12
+//Beep
+#define BeepPin 44
 //rain
 #define RainInPin0 A0
 
@@ -51,14 +53,24 @@ private:
 class CtrlData
 {
 public:
-	int WinState;
+	int WinState=0;
+	float SetTemperature=28.0;
+	int AutoCtrl=1;
 
 private:
 
 };
+class SetData
+{
+public:
+	float PollutantThreshold = 150.0;
+	float MinTemp = 24.0;
+	float MaxTemp = 28.0;
+private:
 
+};
 extern SensorData SensorData0;
 extern CtrlData CtrlData0;
-
+extern SetData SetData0;
 #endif
 

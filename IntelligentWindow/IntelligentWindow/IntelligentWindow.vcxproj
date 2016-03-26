@@ -63,7 +63,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\cores\arduino;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\variants\mega;E:\2\IntelligentWindow\IntelligentWindow\IntelligentWindow;C:\Users\ycg10\Documents\Arduino\libraries\DHT_sensor_library;C:\Users\ycg10\Documents\Arduino\libraries\DHT_sensor_library\utility;D:\Program Files (x86)\Arduino\libraries\Servo\src;D:\Program Files (x86)\Arduino\libraries\Servo\src\utility;D:\Program Files (x86)\Arduino\libraries;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\libraries;D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\ucgjrtxr.xzs\Micro Platforms\default\debuggers;C:\Users\ycg10\Documents\Arduino\libraries;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\cores\arduino;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\variants\mega;C:\Users\ycg10\Documents\Arduino\libraries\DHT_sensor_library;D:\Program Files (x86)\Arduino\libraries\Servo\src;D:\Program Files (x86)\Arduino\libraries;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\libraries;D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\ucgjrtxr.xzs\Micro Platforms\default\debuggers;C:\Users\ycg10\Documents\Arduino\libraries;D:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;D:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;D:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\cores\arduino;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\variants\mega;E:\2\IntelligentWindow\IntelligentWindow\IntelligentWindow;C:\Users\ycg10\Documents\Arduino\libraries\DHT_sensor_library;C:\Users\ycg10\Documents\Arduino\libraries\DHT_sensor_library\utility;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\libraries\EEPROM\src;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\libraries\EEPROM\src\utility;D:\Program Files (x86)\Arduino\libraries\Servo\src;D:\Program Files (x86)\Arduino\libraries\Servo\src\utility;D:\Program Files (x86)\Arduino\libraries;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\libraries;D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\ucgjrtxr.xzs\Micro Platforms\default\debuggers;C:\Users\ycg10\Documents\Arduino\libraries;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\cores\arduino;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\variants\mega;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\libraries\EEPROM\src;C:\Users\ycg10\Documents\Arduino\libraries\DHT_sensor_library;D:\Program Files (x86)\Arduino\libraries\Servo\src;D:\Program Files (x86)\Arduino\libraries;C:\Users\ycg10\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.10\libraries;D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\ucgjrtxr.xzs\Micro Platforms\default\debuggers;C:\Users\ycg10\Documents\Arduino\libraries;D:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;D:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;D:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>E:\2\IntelligentWindow\IntelligentWindow\IntelligentWindow\__vm\.IntelligentWindow.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10607;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -81,12 +81,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorithm.h" />
+    <ClInclude Include="Beep.h" />
+    <ClInclude Include="MotorCtrl.h" />
     <ClInclude Include="UsartTask.h" />
     <ClInclude Include="ValueFunDefine.h" />
     <ClInclude Include="__vm\.IntelligentWindow.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="Beep.cpp" />
+    <ClCompile Include="MotorCtrl.cpp" />
     <ClCompile Include="UsartTask.cpp" />
     <ClCompile Include="ValueFunDefine.cpp" />
   </ItemGroup>

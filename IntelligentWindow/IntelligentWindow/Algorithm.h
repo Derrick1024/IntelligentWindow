@@ -13,6 +13,10 @@ class Algorithm
 {
 public:
 	
+	double compute_pws(float t, float h);
+
+	double compute_pw(float t, float h);
+
 	double compute_d(float t, float h);
 
 	bool American(float t, float h);
@@ -20,6 +24,10 @@ public:
 	bool ASHRAE(float t, float h);
 
 	bool A_A_all_in(float t, float h);
+
+	String AQI_Evaluate(float PM2_5);
+
+	int Window_Evaluate();
 
 	
 

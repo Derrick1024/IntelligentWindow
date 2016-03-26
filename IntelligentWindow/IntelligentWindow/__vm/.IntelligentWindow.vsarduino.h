@@ -65,6 +65,10 @@ extern "C" void __cxa_pure_virtual() {;}
 #include <..\IntelligentWindow\IntelligentWindow.ino>
 #include <..\IntelligentWindow\Algorithm.cpp>
 #include <..\IntelligentWindow\Algorithm.h>
+#include <..\IntelligentWindow\Beep.cpp>
+#include <..\IntelligentWindow\Beep.h>
+#include <..\IntelligentWindow\MotorCtrl.cpp>
+#include <..\IntelligentWindow\MotorCtrl.h>
 #include <..\IntelligentWindow\UsartTask.cpp>
 #include <..\IntelligentWindow\UsartTask.h>
 #include <..\IntelligentWindow\ValueFunDefine.cpp>

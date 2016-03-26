@@ -4,6 +4,9 @@
  Author:	ycg1024
 */
 
+#include "MotorCtrl.h"
+#include <EEPROM.h>
+#include "Beep.h"
 #include "UsartTask.h"
 #include "Algorithm.h"
 #include <DHT.h>
@@ -13,25 +16,32 @@
 
 SensorData SensorData0;
 CtrlData CtrlData0;
+SetData SetData0;
 DHT dht(DHT11Pin, DHTTYPE);
 Servo myservo0;
 Servo myservo1;
 Usart_Task Usart0_Task;
 Usart_Task Usart1_Task;
 Usart_Task Usart2_Task;
+Usart_Task Usart3_Task;
 Algorithm Algorithm0;
-
+Beep Beep0;
+MotorCtrl MotorCtrl0;
+int states = 0;//1234566788999999999999999999999999999999999999999999999999999999999787
 // the setup function runs once when you press reset or power the board
 void setup() {
 	pinMode(MotorPin0, OUTPUT);
 	pinMode(MotorPin1, OUTPUT);
 	pinMode(MotorPwm, OUTPUT);
 	pinMode(RelayPin0, OUTPUT);
+	digitalWrite(RelayPin0, HIGH);
 	pinMode(RelayPin1, OUTPUT);
-
-	pinMode(LimitSwitchPin0, INPUT);
-	pinMode(LimitSwitchPin0, INPUT);
-	pinMode(LimitSwitchPin0, INPUT);
+	digitalWrite(RelayPin1, HIGH);
+	pinMode(BeepPin, OUTPUT);
+	
+	pinMode(LimitSwitchPin0, INPUT_PULLUP);
+	pinMode(LimitSwitchPin1, INPUT_PULLUP);
+	pinMode(LimitSwitchPin2, INPUT_PULLUP);
 
 	Serial.begin(115200); // 调试用
 	Serial1.begin(115200); // 与屏幕的通信
@@ -40,6 +50,15 @@ void setup() {
 	dht.begin();
 	myservo0.attach(ServoPin0);
 	myservo1.attach(ServoPin1);
+
+	Beep0.BeepOn();
+	delay(100);
+	Beep0.BeepOff();
+	delay(100);
+	Beep0.BeepOn();
+	delay(100);
+	Beep0.BeepOff();
+	/*Beep0.BeepSwtich(0);*/
 
 }
 
@@ -57,8 +76,56 @@ void loop() {
 	DHT_getdata();
 
 	Usart1_Task.Usart1_TmtTask();
+	Usart1_Task.Usart1_RevTask();
 
-	delay(100);
+	Usart3_Task.Usart3_TmtTask();
+	Usart3_Task.Usart3_RevTask();
+
+	if (CtrlData0.WinState == 0)
+	{
+		if (!digitalRead(LimitSwitchPin1))
+		{
+			MotorCtrl0.MotorStop();
+			CtrlData0.WinState = 1;
+		}
+	}else if (CtrlData0.WinState == 1)
+	{
+		if (!digitalRead(LimitSwitchPin0))
+		{
+			MotorCtrl0.MotorStop();
+			CtrlData0.WinState = 0;
+
+		}
+	}
+	
+	if (SensorData0.PM2_5 > 130)
+	{
+		if (states == 0)
+		{
+			Beep0.BeepOn();
+			delay(200);
+			Beep0.BeepOff();
+			states = 1;
+		}
+		
+	}
+	else
+	{
+		states = 0;
+	}
+	//if (!digitalRead(LimitSwitchPin0))
+	//{
+	//	MotorCtrl0.MotorStop();
+	//	CtrlData0.WinState = 0;
+
+	//}
+	//if (!digitalRead(LimitSwitchPin1))
+	//{
+	//	MotorCtrl0.MotorStop();
+	//	CtrlData0.WinState = 1;
+	//}
+
+	//delay(100);
 }
 
 void DHT_getdata(void)
