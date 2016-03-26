@@ -55,7 +55,7 @@ class CtrlData
 public:
 	int WinState=0;
 	float SetTemperature=28.0;
-	int AutoCtrl=1;
+	int AutoCtrl=0;
 
 private:
 

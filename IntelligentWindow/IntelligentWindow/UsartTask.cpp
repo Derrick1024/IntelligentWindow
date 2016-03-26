@@ -210,10 +210,10 @@ int Usart_Task::Usart3_RevTask(void)
 		}
 		Serial3.read();
 		delay(6);
-		Serial.print(comdata3);
-		Serial.print(CtrlData0.AutoCtrl);
-		if (CtrlData0.AutoCtrl = 0)
-		{
+		//Serial.print(comdata3);
+		//Serial.print(CtrlData0.AutoCtrl);
+		//if (CtrlData0.AutoCtrl == 0)
+		//{
 			if (comdata3[0] == 0x00)
 			{
 				//stop
@@ -233,7 +233,7 @@ int Usart_Task::Usart3_RevTask(void)
 				CtrlData0.WinState = 1;
 			}
 
-		}
+		//}
 
 	}
 	comdata3 = "";

@@ -80,7 +80,7 @@ void loop() {
 
 	Usart3_Task.Usart3_TmtTask();
 	Usart3_Task.Usart3_RevTask();
-
+	Serial.print(CtrlData0.AutoCtrl);
 	if (CtrlData0.WinState == 0)
 	{
 		if (digitalRead(LimitSwitchPin1) == 0)
