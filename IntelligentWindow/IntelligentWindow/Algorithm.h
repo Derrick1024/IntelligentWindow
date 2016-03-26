@@ -29,8 +29,6 @@ public:
 
 	int Window_Evaluate();
 
-	
-
 private:
 	double C1 = -(5.6745359E3);
 	double C2 = (6.3925247E0);

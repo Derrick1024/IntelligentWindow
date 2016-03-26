@@ -88,7 +88,7 @@ String Algorithm::AQI_Evaluate(float PM2_5)
 
 int Algorithm::Window_Evaluate(void)
 {
-	if (SensorData0.PM2_5 < 200)
+	if (SensorData0.PM2_5 < 150)
 	{
 		if (compute_pw(SensorData0.TempOut, SensorData0.HumiOut) <= compute_pws(SensorData0.TempIn, SensorData0.HumiIn))
 		{
@@ -102,20 +102,35 @@ int Algorithm::Window_Evaluate(void)
 			}
 			else if ((SensorData0.TempIn < SensorData0.TempOut))
 			{
-				if (SensorData0.TempOut < SetData0.MinTemp)
+				if (SensorData0.TempIn < SetData0.MinTemp)
 				{
 					return 1;
 				}
+				return 0;
+				
 			}
-			else if (SensorData0.TempIn < SensorData0.TempOut)
+			else if (SensorData0.TempIn > SensorData0.TempOut)
 			{
-				if (SensorData0.TempOut > SetData0.MaxTemp)
+				if (SensorData0.TempIn > SetData0.MaxTemp)
 				{
 					return 1;
 				}
+				return 0;
+			}
+			else
+			{
+				return 0;
 			}
 				
 		}
+		else
+		{
+			return 0;
+		}
+	}
+	else 
+	{
+		return 0;
 	}
 }
 

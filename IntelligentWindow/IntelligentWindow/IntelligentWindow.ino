@@ -83,14 +83,14 @@ void loop() {
 
 	if (CtrlData0.WinState == 0)
 	{
-		if (!digitalRead(LimitSwitchPin1))
+		if (digitalRead(LimitSwitchPin1) == 0)
 		{
 			MotorCtrl0.MotorStop();
 			CtrlData0.WinState = 1;
 		}
 	}else if (CtrlData0.WinState == 1)
 	{
-		if (!digitalRead(LimitSwitchPin0))
+		if (digitalRead(LimitSwitchPin0) == 0)
 		{
 			MotorCtrl0.MotorStop();
 			CtrlData0.WinState = 0;
