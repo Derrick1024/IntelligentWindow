@@ -8,7 +8,7 @@
 int MotorCtrl::MotorCw(void)
 {
 	MotorStop();
-	delay(30);
+	delay(3);
 	digitalWrite(RelayPin0, LOW);
 	digitalWrite(RelayPin1, HIGH);
 
@@ -18,7 +18,7 @@ int MotorCtrl::MotorCw(void)
 int MotorCtrl::MotorCcw(void)
 {
 	MotorStop();
-	delay(30);
+	delay(3);
 	digitalWrite(RelayPin0, HIGH);
 	digitalWrite(RelayPin1, LOW);
 

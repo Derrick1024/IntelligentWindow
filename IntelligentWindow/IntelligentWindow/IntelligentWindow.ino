@@ -27,7 +27,7 @@ Usart_Task Usart3_Task;
 Algorithm Algorithm0;
 Beep Beep0;
 MotorCtrl MotorCtrl0;
-int states = 0;//1234566788999999999999999999999999999999999999999999999999999999999787
+
 // the setup function runs once when you press reset or power the board
 void setup() {
 	pinMode(MotorPin0, OUTPUT);
@@ -81,50 +81,12 @@ void loop() {
 	Usart3_Task.Usart3_TmtTask();
 	Usart3_Task.Usart3_RevTask();
 	Serial.print(CtrlData0.AutoCtrl);
-	if (CtrlData0.WinState == 0)
-	{
-		if (digitalRead(LimitSwitchPin1) == 0)
-		{
-			MotorCtrl0.MotorStop();
-			CtrlData0.WinState = 1;
-		}
-	}else if (CtrlData0.WinState == 1)
-	{
-		if (digitalRead(LimitSwitchPin0) == 0)
-		{
-			MotorCtrl0.MotorStop();
-			CtrlData0.WinState = 0;
 
-		}
-	}
+	WinLimit();
 	
-	if (SensorData0.PM2_5 > 130)
-	{
-		if (states == 0)
-		{
-			Beep0.BeepOn();
-			delay(200);
-			Beep0.BeepOff();
-			states = 1;
-		}
-		
-	}
-	else
-	{
-		states = 0;
-	}
-	//if (!digitalRead(LimitSwitchPin0))
-	//{
-	//	MotorCtrl0.MotorStop();
-	//	CtrlData0.WinState = 0;
+	PollutionAlarm();
 
-	//}
-	//if (!digitalRead(LimitSwitchPin1))
-	//{
-	//	MotorCtrl0.MotorStop();
-	//	CtrlData0.WinState = 1;
-	//}
-
+	AutoOpenClose();
 	//delay(100);
 }
 
@@ -137,7 +99,69 @@ void DHT_getdata(void)
 	//Serial.print("TempIn");
 	//Serial.print(SensorData0.TempIn, 1);
 }
+void WinLimit(void)
+{
+	if (CtrlData0.WinState == 0)
+	{
+		if (digitalRead(LimitSwitchPin1) == 0)
+		{
+			MotorCtrl0.MotorStop();
+			CtrlData0.WinState = 1;
+		}
+	}
+	else if (CtrlData0.WinState == 1)
+	{
+		if (digitalRead(LimitSwitchPin0) == 0)
+		{
+			MotorCtrl0.MotorStop();
+			CtrlData0.WinState = 0;
 
+		}
+	}
+}
 
+void PollutionAlarm(void)
+{
+	if (SensorData0.PM2_5 > SetData0.PollutantThreshold)
+	{
+		if (CtrlData0.PollutionState == 0)
+		{
+			Beep0.BeepOn();
+			delay(200);
+			Beep0.BeepOff();
+			CtrlData0.PollutionState = 1;
+		}
+
+	}
+	else
+	{
+		CtrlData0.PollutionState = 0;
+	}
+}
+
+void AutoOpenClose(void)
+{
+	if (CtrlData0.AutoCtrl == 1)
+	{
+		if (CtrlData0.WinRecommendedState == 1)
+		{
+			if (CtrlData0.WinState == 0)
+			{
+				MotorCtrl0.MotorCw();
+				CtrlData0.WinState = 0;
+			}
+		
+		}
+		if (CtrlData0.WinRecommendedState == 0)
+		{
+			if (CtrlData0.WinState == 1)
+			{
+				MotorCtrl0.MotorCcw();
+				CtrlData0.WinState = 1;
+			}
+			
+		}
+	}
+}
 
 

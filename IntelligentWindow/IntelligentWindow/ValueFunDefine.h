@@ -54,6 +54,8 @@ class CtrlData
 {
 public:
 	int WinState=0;
+	int WinRecommendedState = 0;
+	int PollutionState = 0;
 	float SetTemperature=28.0;
 	int AutoCtrl=0;
 

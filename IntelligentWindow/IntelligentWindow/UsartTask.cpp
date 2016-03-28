@@ -44,11 +44,13 @@ int Usart_Task::Usart1_TmtTask(void)
 	Serial1.write(CmdEnd, 3);
 	if (Algorithm0.Window_Evaluate() == 0)
 	{
+		CtrlData0.WinRecommendedState = 0;
 		Serial1.print(String("") + "sszt.t5.txt=\"" + "N" + "\"");
 		Serial1.write(CmdEnd, 3);
 	}
 	if (Algorithm0.Window_Evaluate() == 1)
 	{
+		CtrlData0.WinRecommendedState = 1;
 		Serial1.print(String("") + "sszt.t5.txt=\"" + "Y" + "\"");
 		Serial1.write(CmdEnd, 3);
 	}
